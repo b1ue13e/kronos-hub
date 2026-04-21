@@ -1,0 +1,22 @@
+{
+  "tickers": [
+    "QQQ"
+  ],
+  "start_date": "2024-06-03",
+  "end_date": "2024-06-14",
+  "initial_cash": 100000.0,
+  "margin_requirement": 0.0,
+  "selected_analysts": [
+    "technical_analyst",
+    "sentiment_analyst"
+  ],
+  "model_name": "gpt-5.4",
+  "model_provider": "OpenAI",
+  "show_reasoning": false,
+  "portfolio_positions": [],
+  "api_keys": {
+    "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY",
+    "FINANCIAL_DATASETS_API_KEY": "YOUR_FINANCIAL_DATASETS_API_KEY"
+  },
+  "environment": {}
+}

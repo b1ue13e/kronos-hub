@@ -1,0 +1,17 @@
+Kronos Hub
+Copyright (c) 2026 Kronos Hub contributors
+
+This repository is licensed under Apache License 2.0 at the root level for
+the original integration-layer work, unless a subdirectory or file states
+otherwise.
+
+This repository also contains vendored or snapshot copies of third-party
+projects that retain their own licenses and notices, including but not
+limited to:
+
+- TradingAgents-main/
+- Kronos-master/
+- ai-hedge-fund-main/
+
+See THIRD_PARTY_NOTICES.md and any license files contained in those
+subdirectories for details.
