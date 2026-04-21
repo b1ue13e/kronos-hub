@@ -95,6 +95,7 @@ python -m uvicorn apps.api_gateway.main:app --reload --port 8010
 
 ```powershell
 .\examples\scripts\invoke-kronos-sample.ps1
+.\examples\scripts\invoke-hybrid-demo.ps1
 .\examples\scripts\invoke-tradingagents-sample.ps1
 .\examples\scripts\invoke-aihf-run-sample.ps1
 .\examples\scripts\invoke-aihf-backtest-sample.ps1
@@ -195,6 +196,14 @@ python -m unittest
 - 定义 `Kronos` 输出到 `TradingAgents` 输入的共享 schema
 - 把 forecast 信号注入研究流程
 - 把研究结论转为可执行 / 可回测输入
+
+当前仓库已经有一个最小可演示版本：
+
+- 真实运行 `Kronos`
+- 在 Hub 层生成 signal summary
+- 可选扩展到 `TradingAgents` 和 `AI Hedge Fund`
+
+下一步更重要的是把这个桥接从 Hub 内部摘要，逐步推进成上游系统真正理解的 forecast-aware 机制。
 
 ### 统一结果模型
 

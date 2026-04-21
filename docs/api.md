@@ -115,6 +115,42 @@ http://127.0.0.1:8010/docs
 - `ai_hedge_fund`
 - `hybrid`
 
+### Hybrid demo via `/runs`
+
+`hybrid` 现在支持一个最小可演示链路：
+
+1. 用 `options.history` 和 `options.pred_len` 运行真实 `Kronos` 预测
+2. 在 Hub 内部把 forecast 转成结构化 signal summary
+3. 如果设置 `options.enable_research=true`，继续调用 `TradingAgents`
+4. 如果设置 `options.enable_execution=true`，继续调用 `AI Hedge Fund`
+
+最小字段：
+
+- `engine = "hybrid"`
+- `dry_run = false`
+- `tickers`
+- `options.history`
+- `options.pred_len`
+
+常用可选字段：
+
+- `options.future_timestamps`
+- `options.model_id`
+- `options.tokenizer_id`
+- `options.enable_research`
+- `options.enable_execution`
+- `trade_date`
+- `start_date`
+- `end_date`
+
+示例模板：
+
+- [`examples/requests/hybrid.demo.template.json`](../examples/requests/hybrid.demo.template.json)
+
+示例脚本：
+
+- [`examples/scripts/invoke-hybrid-demo.ps1`](../examples/scripts/invoke-hybrid-demo.ps1)
+
 ---
 
 ## `POST /predictions/kronos`

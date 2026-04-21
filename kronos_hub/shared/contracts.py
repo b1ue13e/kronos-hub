@@ -15,6 +15,7 @@ class RunStatus(str, Enum):
     STUB = "stub"
     UNAVAILABLE = "unavailable"
     PLANNED = "planned"
+    PARTIAL = "partial"
     COMPLETED = "completed"
     FAILED = "failed"
 
@@ -23,3 +24,4 @@ class ExecutionMode(str, Enum):
     ADAPTER = "adapter"
     HANDOFF = "handoff"
     HYBRID_PLAN = "hybrid_plan"
+    HYBRID_RUNTIME = "hybrid_runtime"

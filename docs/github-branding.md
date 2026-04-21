@@ -22,15 +22,15 @@ Shorter fallback:
 
 ## Website
 
-Best current choice:
+Current recommended choice:
 
-- repository URL itself until a docs/demo site exists
+- `https://b1ue13e.github.io/kronos-hub/`
 
-Better future choices:
+Future upgrades:
 
 - a hosted Swagger / ReDoc instance
-- a docs site generated from `docs/`
-- a lightweight landing page showing architecture and demo flows
+- an interactive docs site generated from the API schema
+- a lightweight live sandbox for the hybrid demo chain
 
 ## Suggested Topics
 

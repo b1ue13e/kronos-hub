@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kronos Hub Docs</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Kronos Hub</p>
+        <h1>Forecasting, multi-agent research, and execution workflows under one API.</h1>
+        <p class="lede">
+          Kronos Hub is an integration-first quant platform that connects Kronos forecasting,
+          TradingAgents research, and AI Hedge Fund execution/backtesting through a shared gateway and worker runtime.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/b1ue13e/kronos-hub">GitHub Repo</a>
+          <a class="button" href="https://github.com/b1ue13e/kronos-hub/blob/main/README.md">README</a>
+          <a class="button" href="https://github.com/b1ue13e/kronos-hub/blob/main/docs/api.md">API Reference</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="./assets/architecture-overview.svg" alt="Kronos Hub architecture overview" />
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Live Routes</h2>
+        <ul>
+          <li><code>POST /predictions/kronos</code></li>
+          <li><code>POST /predictions/kronos/batch</code></li>
+          <li><code>POST /research/tradingagents</code></li>
+          <li><code>POST /execution/ai-hedge-fund/run</code></li>
+          <li><code>POST /execution/ai-hedge-fund/backtest</code></li>
+          <li><code>POST /runs</code></li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Minimal Hybrid Demo</h2>
+        <p>The hybrid path now supports a minimal real runtime chain:</p>
+        <ol>
+          <li>Run a real Kronos forecast</li>
+          <li>Synthesize a structured signal in the hub</li>
+          <li>Optionally expand into research</li>
+          <li>Optionally expand into execution/backtesting</li>
+        </ol>
+        <a class="text-link" href="https://github.com/b1ue13e/kronos-hub/blob/main/examples/requests/hybrid.demo.template.json">Open demo request template</a>
+      </article>
+      <article class="card">
+        <h2>Why This Repo Exists</h2>
+        <p>
+          The upstream repos are useful on their own. Kronos Hub is for teams that want a shared API,
+          isolated workers for dependency conflicts, and one place to build forecast-aware quant flows.
+        </p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Try It Locally</h2>
+      <pre><code>Copy-Item .env.example .env
+pip install -e .
+python .\scripts\smoke_check.py
+python -m uvicorn apps.api_gateway.main:app --reload --port 8010</code></pre>
+    </section>
+
+    <section class="panel">
+      <h2>Hybrid Demo Script</h2>
+      <pre><code>.\examples\scripts\invoke-hybrid-demo.ps1
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch -EnableExecution</code></pre>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Deep Dives</h2>
+        <ul>
+          <li><a href="https://github.com/b1ue13e/kronos-hub/blob/main/docs/architecture.md">Architecture</a></li>
+          <li><a href="https://github.com/b1ue13e/kronos-hub/blob/main/docs/api.md">API</a></li>
+          <li><a href="https://github.com/b1ue13e/kronos-hub/blob/main/docs/development.md">Development</a></li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Repo Positioning</h2>
+        <ul>
+          <li>Integration-first architecture</li>
+          <li>Worker-backed orchestration</li>
+          <li>Forecast + research + execution stack</li>
+          <li>GitHub-ready public docs surface</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>License Boundary</h2>
+        <p>
+          The root integration layer is Apache-2.0. Vendored upstream projects keep their own licenses and notices.
+        </p>
+        <a class="text-link" href="https://github.com/b1ue13e/kronos-hub/blob/main/THIRD_PARTY_NOTICES.md">Read third-party notices</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

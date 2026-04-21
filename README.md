@@ -1,32 +1,26 @@
 # Kronos Hub
 
-An integration-first quant platform that connects:
+[![Stars](https://img.shields.io/github/stars/b1ue13e/kronos-hub?style=flat-square)](https://github.com/b1ue13e/kronos-hub/stargazers)
+[![License](https://img.shields.io/github/license/b1ue13e/kronos-hub?style=flat-square)](https://github.com/b1ue13e/kronos-hub/blob/main/LICENSE)
+[![Docs](https://img.shields.io/badge/docs-github%20pages-0f766e?style=flat-square)](https://b1ue13e.github.io/kronos-hub/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-2563eb?style=flat-square)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/api-fastapi-059669?style=flat-square)](https://fastapi.tiangolo.com/)
+
+**Forecasting + multi-agent research + execution/backtesting, unified under one integration-first API hub.**
+
+Kronos Hub connects:
 
 - `Kronos` for OHLCV forecasting
 - `TradingAgents` for multi-agent research and debate
 - `AI Hedge Fund` for execution and backtesting
 
-`Kronos Hub` does not try to smash three codebases into one fragile Python runtime. Instead, it adds a unified API and worker-based orchestration layer on top of existing projects.
+Instead of smashing three codebases into one fragile runtime, it adds a worker-based orchestration layer and a single API surface on top of existing projects.
 
-[中文说明](#中文说明)
+**Quick links:** [Hosted Docs](https://b1ue13e.github.io/kronos-hub/) · [Architecture](docs/architecture.md) · [API](docs/api.md) · [Hybrid Demo](examples/requests/hybrid.demo.template.json) · [中文说明](#中文说明)
 
-## Why This Repo Exists
+[![Kronos Hub Architecture](docs/assets/architecture-overview.svg)](https://b1ue13e.github.io/kronos-hub/)
 
-These three projects are naturally complementary, but they are not packaged around the same boundary:
-
-- `Kronos` behaves like a forecasting engine and model toolkit
-- `TradingAgents` behaves like a reusable research engine
-- `AI Hedge Fund` behaves like an execution, backtesting, and application shell
-
-This repository turns them into one extensible workspace with:
-
-- a shared FastAPI gateway
-- a unified engine registry
-- subprocess worker isolation for dependency conflicts
-- example requests and scripts for end-to-end testing
-- a planned `hybrid` pipeline for forecast -> research -> execution flows
-
-## What Works Today
+## What You Can Do Today
 
 The current workspace already supports real worker-backed routes for:
 
@@ -38,9 +32,73 @@ The current workspace already supports real worker-backed routes for:
 | `POST /execution/ai-hedge-fund/run` | Analysis / execution flow | Live |
 | `POST /execution/ai-hedge-fund/backtest` | Backtesting flow | Live |
 | `POST /runs` | Unified engine entrypoint | Live |
-| `GET /engines` | Engine discovery | Live |
-| `GET /projects` | Vendored subproject discovery | Live |
-| `GET /health` | Hub health check | Live |
+
+New in this repo:
+
+- a **minimal hybrid demo chain** that executes a real Kronos forecast and synthesizes a structured signal in the hub
+- optional fan-out into `TradingAgents` research and `AI Hedge Fund` execution/backtesting when credentials are available
+- GitHub Pages-ready docs and a public-facing repo structure designed for discoverability
+
+## Why This Repo Exists
+
+These upstream projects are complementary, but they are not packaged around the same boundary:
+
+- `Kronos` behaves like a forecasting engine and model toolkit
+- `TradingAgents` behaves like a reusable research engine
+- `AI Hedge Fund` behaves like an execution, backtesting, and app shell
+
+Kronos Hub turns them into one extensible workspace with:
+
+- a shared FastAPI gateway
+- a unified engine registry
+- subprocess worker isolation for dependency conflicts
+- runnable request templates and PowerShell scripts
+- a bridge layer for forecast -> research -> execution orchestration
+
+## Minimal Hybrid Demo
+
+The new `hybrid` mode is no longer only a placeholder.
+
+**Minimal demo path**
+
+1. Run a real `Kronos` forecast from OHLCV history.
+2. Build a hub-side signal summary from forecast output.
+3. Optionally expand into `TradingAgents` research.
+4. Optionally expand into `AI Hedge Fund` execution or backtesting.
+
+Use the demo template:
+
+- [hybrid.demo.template.json](examples/requests/hybrid.demo.template.json)
+
+Or the runnable script:
+
+```powershell
+.\examples\scripts\invoke-hybrid-demo.ps1
+```
+
+With optional expansion:
+
+```powershell
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch -EnableExecution
+```
+
+## Why Not Just Use The Upstream Repos?
+
+You absolutely can, and for some users that is still the right choice.
+
+But this repo becomes interesting when you want one or more of these:
+
+- one API surface instead of three unrelated entrypoints
+- one place to inspect project availability, health, and orchestration paths
+- isolated workers for conflicting dependencies instead of a risky merged environment
+- a bridge layer where forecast outputs can be normalized before research/execution
+- a future product surface that can evolve into one coherent quant workflow
+
+In short:
+
+- use the upstream repos if you want each tool on its own
+- use `Kronos Hub` if you want an integration layer and an eventual unified platform
 
 ## Architecture At A Glance
 
@@ -54,7 +112,7 @@ flowchart LR
     Workers --> Kronos["Kronos-master"]
     Workers --> TradingAgents["TradingAgents-main"]
     Workers --> AIHF["ai-hedge-fund-main"]
-    Registry --> Hybrid["Hybrid Adapter (planned orchestration)"]
+    Registry --> Hybrid["Hybrid Adapter"]
 ```
 
 The request flow is intentionally simple:
@@ -63,34 +121,7 @@ The request flow is intentionally simple:
 2. The API layer validates and translates the request.
 3. The service layer builds a worker payload.
 4. A dedicated worker process enters the target subproject.
-5. Results are normalized back into a single JSON response contract.
-
-## Repo Layout
-
-```text
-F:\kronos
-├─ ai-hedge-fund-main/      # vendored execution / backtesting app
-├─ TradingAgents-main/      # vendored multi-agent research engine
-├─ Kronos-master/           # vendored OHLCV forecasting project
-├─ apps/
-│  └─ api_gateway/          # external FastAPI entrypoint
-├─ docs/
-│  ├─ api.md
-│  ├─ architecture.md
-│  └─ development.md
-├─ examples/
-│  ├─ requests/             # JSON request templates
-│  └─ scripts/              # PowerShell invocation scripts
-├─ kronos_hub/
-│  ├─ api/
-│  ├─ engines/
-│  ├─ services/
-│  ├─ shared/
-│  └─ workers/
-├─ scripts/
-├─ tests/
-└─ README.md
-```
+5. Results are normalized back into a single JSON contract.
 
 ## Quick Start
 
@@ -152,6 +183,35 @@ This keeps:
 - Kronos model dependencies isolated
 - integration work moving without forcing a risky full refactor
 
+## Repo Layout
+
+```text
+F:\kronos
+├─ ai-hedge-fund-main/      # vendored execution / backtesting app
+├─ TradingAgents-main/      # vendored multi-agent research engine
+├─ Kronos-master/           # vendored OHLCV forecasting project
+├─ apps/
+│  └─ api_gateway/          # external FastAPI entrypoint
+├─ docs/
+│  ├─ api.md
+│  ├─ architecture.md
+│  ├─ development.md
+│  ├─ github-branding.md
+│  └─ index.html            # GitHub Pages-ready docs landing page
+├─ examples/
+│  ├─ requests/
+│  └─ scripts/
+├─ kronos_hub/
+│  ├─ api/
+│  ├─ engines/
+│  ├─ services/
+│  ├─ shared/
+│  └─ workers/
+├─ scripts/
+├─ tests/
+└─ README.md
+```
+
 ## Example Requests
 
 The repo already includes runnable request templates and PowerShell scripts:
@@ -160,10 +220,11 @@ The repo already includes runnable request templates and PowerShell scripts:
 - `examples/requests/*.json`
 - `examples/scripts/*.ps1`
 
-Common examples:
+Common entrypoints:
 
 ```powershell
 .\examples\scripts\invoke-kronos-sample.ps1
+.\examples\scripts\invoke-hybrid-demo.ps1
 .\examples\scripts\invoke-tradingagents-sample.ps1
 .\examples\scripts\invoke-aihf-run-sample.ps1
 .\examples\scripts\invoke-aihf-backtest-sample.ps1
@@ -171,10 +232,10 @@ Common examples:
 
 ## Current Limits
 
-This repo already unifies three working capability layers, but the deeper product integration is still ahead:
+This repo already unifies three working capability layers, but deeper product integration is still ahead:
 
-- `hybrid` is scaffolded, not fully runtime-connected
-- `TradingAgents` is not yet forecast-aware by default
+- `TradingAgents` is not yet natively forecast-aware end-to-end
+- `hybrid` currently uses hub-side signal synthesis as the bridge
 - `AI Hedge Fund` is not yet fully re-centered around the hub gateway
 - a unified UI, result store, and logging layer are still future work
 
@@ -190,14 +251,15 @@ For open-source users, this repo is valuable in at least three ways:
 
 The highest-leverage next steps are:
 
-1. Make `hybrid` perform a real end-to-end runtime chain.
+1. Make `hybrid` perform a deeper forecast-aware research handoff inside upstream reasoning graphs.
 2. Define a shared signal schema between forecast and research layers.
-3. Add forecast-aware tools or analysts inside `TradingAgents`.
-4. Route more of the execution and UI surface through the hub gateway.
-5. Add unified storage, logging, and visualization for results.
+3. Route more of the execution and UI surface through the hub gateway.
+4. Add unified storage, logging, and visualization for results.
+5. Publish a lightweight live demo or hosted sandbox beyond docs-only Pages.
 
 ## Docs
 
+- [Hosted Docs](https://b1ue13e.github.io/kronos-hub/)
 - [docs/architecture.md](docs/architecture.md): architecture and runtime boundaries
 - [docs/api.md](docs/api.md): routes and request payloads
 - [docs/development.md](docs/development.md): local development workflow
@@ -232,7 +294,7 @@ This repository is for research, engineering integration, and educational use. I
 - `Kronos` 已通过 worker 封装为统一预测服务
 - `TradingAgents` 已通过 worker 接为真实研究引擎
 - `ai-hedge-fund` 已通过 worker 接为执行 / 回测壳
-- `hybrid` 引擎已定义三阶段流水线，但还未完成端到端串联
+- `hybrid` 已经具备最小可演示链路：真实 forecast + hub-side signal synthesis + 可选 research/execution
 
 ### 为什么采用 Hub + Worker
 
@@ -246,24 +308,29 @@ This repository is for research, engineering integration, and educational use. I
 - 下层隔离：每个子项目可以绑定自己的 Python 解释器
 - 调度方式：通过 `subprocess` worker 直接调用真实项目代码
 
-### 快速开始
+### 最小 Hybrid 演示
 
 ```powershell
-Copy-Item .env.example .env
-pip install -e .
-python .\scripts\smoke_check.py
-python -m uvicorn apps.api_gateway.main:app --reload --port 8010
+.\examples\scripts\invoke-hybrid-demo.ps1
+```
+
+扩展到研究 / 执行：
+
+```powershell
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch
+.\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch -EnableExecution
 ```
 
 ### 关键文档
 
+- [Hosted Docs](https://b1ue13e.github.io/kronos-hub/)
 - [docs/architecture.md](docs/architecture.md)
 - [docs/api.md](docs/api.md)
 - [docs/development.md](docs/development.md)
 
 ### 当前边界
 
-- `hybrid` 还没有真正串起预测 -> 研究 -> 执行
-- `TradingAgents` 还没有显式接收来自 `Kronos` 的共享信号
+- `TradingAgents` 还没有真正把 forecast context 深度写进上游 reasoning graph
+- `hybrid` 当前仍以 Hub 侧信号桥接为主
 - `ai-hedge-fund` 还没有完全以 Hub 网关作为统一后端
 - 统一日志、统一回测结果视图、统一前端入口仍是下一阶段工作

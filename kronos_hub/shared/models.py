@@ -37,6 +37,9 @@ class PipelineStage:
     description: str
     engine: str | None = None
     output_hint: str | None = None
+    status: str | None = None
+    details: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

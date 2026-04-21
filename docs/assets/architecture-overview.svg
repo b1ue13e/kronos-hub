@@ -1,0 +1,64 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="32" fill="#F8F4EA"/>
+  <rect x="40" y="40" width="1120" height="620" rx="28" fill="url(#bg)" stroke="#D7D0BE"/>
+
+  <rect x="78" y="276" width="170" height="104" rx="20" fill="#102018"/>
+  <text x="163" y="323" text-anchor="middle" fill="#F8F4EA" font-family="Segoe UI, sans-serif" font-size="26" font-weight="700">Clients</text>
+  <text x="163" y="352" text-anchor="middle" fill="#A8BBB0" font-family="Segoe UI, sans-serif" font-size="16">scripts / apps / future UI</text>
+
+  <rect x="316" y="246" width="220" height="164" rx="24" fill="#FFFDF8" stroke="#CFC5B1"/>
+  <text x="426" y="294" text-anchor="middle" fill="#102018" font-family="Segoe UI, sans-serif" font-size="28" font-weight="700">FastAPI Gateway</text>
+  <text x="426" y="326" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="17">routes, validation, unified entrypoint</text>
+  <text x="426" y="354" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="17">/predictions · /research · /execution · /runs</text>
+
+  <rect x="614" y="158" width="246" height="136" rx="24" fill="#D8EEE8" stroke="#82B4AB"/>
+  <text x="737" y="205" text-anchor="middle" fill="#0B5F59" font-family="Segoe UI, sans-serif" font-size="28" font-weight="700">Engine Registry</text>
+  <text x="737" y="237" text-anchor="middle" fill="#355E58" font-family="Segoe UI, sans-serif" font-size="17">kronos · tradingagents</text>
+  <text x="737" y="264" text-anchor="middle" fill="#355E58" font-family="Segoe UI, sans-serif" font-size="17">ai_hedge_fund · hybrid</text>
+
+  <rect x="614" y="330" width="246" height="136" rx="24" fill="#FFFDF8" stroke="#CFC5B1"/>
+  <text x="737" y="378" text-anchor="middle" fill="#102018" font-family="Segoe UI, sans-serif" font-size="28" font-weight="700">Service Layer</text>
+  <text x="737" y="410" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="17">payload building</text>
+  <text x="737" y="437" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="17">contracts · environment mapping</text>
+
+  <rect x="614" y="502" width="246" height="112" rx="24" fill="#102018"/>
+  <text x="737" y="548" text-anchor="middle" fill="#F8F4EA" font-family="Segoe UI, sans-serif" font-size="28" font-weight="700">JSON Workers</text>
+  <text x="737" y="579" text-anchor="middle" fill="#A8BBB0" font-family="Segoe UI, sans-serif" font-size="17">subprocess isolation for each runtime</text>
+
+  <rect x="928" y="108" width="184" height="116" rx="22" fill="#FFFDF8" stroke="#CFC5B1"/>
+  <text x="1020" y="154" text-anchor="middle" fill="#102018" font-family="Segoe UI, sans-serif" font-size="26" font-weight="700">Kronos</text>
+  <text x="1020" y="184" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="16">forecast engine</text>
+
+  <rect x="928" y="282" width="184" height="116" rx="22" fill="#FFFDF8" stroke="#CFC5B1"/>
+  <text x="1020" y="328" text-anchor="middle" fill="#102018" font-family="Segoe UI, sans-serif" font-size="26" font-weight="700">TradingAgents</text>
+  <text x="1020" y="358" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="16">research + debate</text>
+
+  <rect x="928" y="456" width="184" height="116" rx="22" fill="#FFFDF8" stroke="#CFC5B1"/>
+  <text x="1020" y="502" text-anchor="middle" fill="#102018" font-family="Segoe UI, sans-serif" font-size="25" font-weight="700">AI Hedge Fund</text>
+  <text x="1020" y="532" text-anchor="middle" fill="#546256" font-family="Segoe UI, sans-serif" font-size="16">execution + backtest shell</text>
+
+  <rect x="350" y="92" width="152" height="88" rx="20" fill="#E7D4BA" stroke="#C8965A"/>
+  <text x="426" y="128" text-anchor="middle" fill="#754515" font-family="Segoe UI, sans-serif" font-size="24" font-weight="700">Hybrid</text>
+  <text x="426" y="154" text-anchor="middle" fill="#8A5A25" font-family="Segoe UI, sans-serif" font-size="15">forecast → signal → optional fan-out</text>
+
+  <path d="M248 328H296" stroke="#0F766E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M536 328H582" stroke="#0F766E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M860 216L912 170" stroke="#0F766E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M860 398H912" stroke="#0F766E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M860 558L912 514" stroke="#0F766E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M426 180V230" stroke="#BD6F26" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10"/>
+  <path d="M502 136H614" stroke="#BD6F26" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 10"/>
+
+  <circle cx="296" cy="328" r="8" fill="#0F766E"/>
+  <circle cx="582" cy="328" r="8" fill="#0F766E"/>
+  <circle cx="912" cy="170" r="8" fill="#0F766E"/>
+  <circle cx="912" cy="398" r="8" fill="#0F766E"/>
+  <circle cx="912" cy="514" r="8" fill="#0F766E"/>
+
+  <defs>
+    <linearGradient id="bg" x1="72" y1="58" x2="1092" y2="642" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8EB"/>
+      <stop offset="1" stop-color="#F1E9D9"/>
+    </linearGradient>
+  </defs>
+</svg>

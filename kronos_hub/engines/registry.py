@@ -27,7 +27,14 @@ class EngineRegistry:
                 project_paths.kronos,
                 python_executable=os.getenv("KRONOS_HUB_KRONOS_PYTHON"),
             ),
-            "hybrid": HybridAdapter(),
+            "hybrid": HybridAdapter(
+                kronos_project_root=project_paths.kronos,
+                tradingagents_project_root=project_paths.tradingagents,
+                ai_hedge_fund_project_root=project_paths.ai_hedge_fund,
+                kronos_python_executable=os.getenv("KRONOS_HUB_KRONOS_PYTHON"),
+                tradingagents_python_executable=os.getenv("KRONOS_HUB_TRADINGAGENTS_PYTHON"),
+                ai_hedge_fund_python_executable=os.getenv("KRONOS_HUB_AI_HEDGE_FUND_PYTHON"),
+            ),
         }
 
     @classmethod

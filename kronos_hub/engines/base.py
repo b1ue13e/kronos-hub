@@ -80,6 +80,7 @@ class BaseEngineAdapter(ABC):
         metadata: dict | None = None,
         next_steps: list[str] | None = None,
         execution_mode: ExecutionMode = ExecutionMode.ADAPTER,
+        pipeline: list[PipelineStage] | None = None,
     ) -> RunResponse:
         return RunResponse(
             engine=self.name,
@@ -91,6 +92,30 @@ class BaseEngineAdapter(ABC):
             next_steps=next_steps or [],
             result=result or {},
             metadata=metadata or {},
+            pipeline=pipeline or [],
+        )
+
+    def partial_response(
+        self,
+        message: str,
+        *,
+        result: dict | None = None,
+        metadata: dict | None = None,
+        next_steps: list[str] | None = None,
+        execution_mode: ExecutionMode = ExecutionMode.ADAPTER,
+        pipeline: list[PipelineStage] | None = None,
+    ) -> RunResponse:
+        return RunResponse(
+            engine=self.name,
+            status=RunStatus.PARTIAL.value,
+            message=message,
+            project_root=str(self.project_root) if self.project_root else None,
+            execution_mode=execution_mode.value,
+            capabilities=list(self.capabilities),
+            next_steps=next_steps or [],
+            result=result or {},
+            metadata=metadata or {},
+            pipeline=pipeline or [],
         )
 
     def failed_response(

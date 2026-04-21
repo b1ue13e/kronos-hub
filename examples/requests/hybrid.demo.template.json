@@ -1,0 +1,61 @@
+{
+  "engine": "hybrid",
+  "tickers": ["AAPL"],
+  "dry_run": false,
+  "options": {
+    "history": [
+      {
+        "timestamp": "2024-06-18 11:15:00",
+        "open": 11.27,
+        "high": 11.28,
+        "low": 11.26,
+        "close": 11.27,
+        "volume": 379.0,
+        "amount": 427161.0
+      },
+      {
+        "timestamp": "2024-06-18 11:20:00",
+        "open": 11.27,
+        "high": 11.28,
+        "low": 11.27,
+        "close": 11.27,
+        "volume": 277.0,
+        "amount": 312192.0
+      },
+      {
+        "timestamp": "2024-06-18 11:25:00",
+        "open": 11.27,
+        "high": 11.27,
+        "low": 11.26,
+        "close": 11.27,
+        "volume": 380.0,
+        "amount": 427954.0
+      },
+      {
+        "timestamp": "2024-06-18 11:30:00",
+        "open": 11.26,
+        "high": 11.27,
+        "low": 11.26,
+        "close": 11.27,
+        "volume": 761.0,
+        "amount": 856971.0
+      }
+    ],
+    "pred_len": 4,
+    "future_timestamps": [
+      "2024-06-18 11:35:00",
+      "2024-06-18 11:40:00",
+      "2024-06-18 11:45:00",
+      "2024-06-18 11:50:00"
+    ],
+    "model_id": "NeoQuasar/Kronos-mini",
+    "tokenizer_id": "NeoQuasar/Kronos-Tokenizer-2k",
+    "max_context": 256,
+    "temperature": 1.0,
+    "top_k": 0,
+    "top_p": 0.9,
+    "sample_count": 1,
+    "enable_research": false,
+    "enable_execution": false
+  }
+}

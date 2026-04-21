@@ -25,6 +25,23 @@ And calls:
 
 - `POST /predictions/kronos`
 
+### Hybrid demo chain
+
+```powershell
+.\examples\scripts\invoke-hybrid-demo.ps1
+```
+
+This calls:
+
+- `POST /runs`
+
+With:
+
+- `engine = hybrid`
+- a real Kronos forecast request
+- hub-side signal synthesis
+- optional expansion flags for research and execution
+
 ## Requires API keys
 
 ### TradingAgents research
@@ -82,3 +99,5 @@ Covered styles:
 ## Notes
 
 These scripts load the root [`.env`](F:/kronos/.env) first, then fall back to the current environment for API keys.
+
+If you only want the minimal hybrid demo, `invoke-hybrid-demo.ps1` can run with forecast-only settings. `-EnableResearch` and `-EnableExecution` expand the chain and will usually require external API keys.
