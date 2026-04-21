@@ -45,3 +45,9 @@ Thumbs.db
 .vscode/
 
 *.orig
+
+# Generated sample outputs from vendored subprojects
+Kronos-master/webui/prediction_results/
+Kronos-master/examples/yuce/*.json
+Kronos-master/examples/yuce/*.png
+Kronos-master/finetune_csv/examples/*.png

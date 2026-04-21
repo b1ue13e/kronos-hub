@@ -1,84 +1,84 @@
 # Example Requests
 
-这里放的是给 hub 网关直接调用的示例。
+This folder contains runnable examples for calling the hub gateway directly.
 
-## 文件结构
+## Layout
 
 - `requests/`
-  - JSON 模板，请求结构一眼能看懂
+  JSON request templates
 - `scripts/`
-  - PowerShell 一键调用脚本
+  PowerShell invocation scripts
 
-## 直接可跑
+## Runnable without external API keys
 
-### Kronos 预测
+### Kronos forecast
 
 ```powershell
 .\examples\scripts\invoke-kronos-sample.ps1
 ```
 
-默认会读取：
+This sample reads:
 
 - [regression_input.csv](F:/kronos/Kronos-master/tests/data/regression_input.csv)
 
-并调用：
+And calls:
 
 - `POST /predictions/kronos`
 
-## 需要 API key
+## Requires API keys
 
-### TradingAgents 研究
+### TradingAgents research
 
 ```powershell
 .\examples\scripts\invoke-tradingagents-sample.ps1
 ```
 
-需要：
+Required:
 
 - `OPENAI_API_KEY`
 
-### AI Hedge Fund 执行
+### AI Hedge Fund run
 
 ```powershell
 .\examples\scripts\invoke-aihf-run-sample.ps1
 ```
 
-需要：
+Required:
 
 - `OPENAI_API_KEY`
 - `FINANCIAL_DATASETS_API_KEY`
 
-### AI Hedge Fund 回测
+### AI Hedge Fund backtest
 
 ```powershell
 .\examples\scripts\invoke-aihf-backtest-sample.ps1
 ```
 
-需要：
+Required:
 
 - `OPENAI_API_KEY`
 - `FINANCIAL_DATASETS_API_KEY`
 
-### AI Hedge Fund 风格对比
+### AI Hedge Fund style comparisons
 
-运行多组双 analyst 样例：
+Run multiple dual-analyst samples:
 
 ```powershell
 .\examples\scripts\invoke-aihf-style-compare.ps1
 ```
 
-回测多组风格：
+Backtest multiple styles:
 
 ```powershell
 .\examples\scripts\invoke-aihf-style-backtests.ps1
 ```
 
-覆盖风格：
+Covered styles:
 
-- 成长股：`NVDA`，`technical_analyst + growth_analyst`
-- ETF：`QQQ`，`technical_analyst + sentiment_analyst`
-- 中概股：`BABA`，`technical_analyst + sentiment_analyst`
+- growth: `NVDA`, `technical_analyst + growth_analyst`
+- ETF: `QQQ`, `technical_analyst + sentiment_analyst`
+- China ADR: `BABA`, `technical_analyst + sentiment_analyst`
 
-## 说明
+## Notes
 
-这些脚本会优先加载根目录的 [`.env`](F:/kronos/.env)，再从当前环境变量读取 API key。
+These scripts load the root [`.env`](F:/kronos/.env) first, then fall back to the current environment for API keys.
