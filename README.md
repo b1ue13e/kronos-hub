@@ -261,8 +261,8 @@ Common entrypoints:
 
 This repo already unifies three working capability layers, but deeper product integration is still ahead:
 
-- `TradingAgents` is not yet natively forecast-aware end-to-end
-- `hybrid` currently uses hub-side signal synthesis as the bridge
+- `TradingAgents` now receives forecast context across analyst, researcher, trader, risk, and portfolio prompts, but deeper tool-level fusion is still ahead
+- `hybrid` currently bridges forecast and research through hub-generated signal synthesis plus injected prompt context
 - `AI Hedge Fund` is not yet fully re-centered around the hub gateway
 - a unified UI, result store, and logging layer are still future work
 
@@ -321,7 +321,7 @@ This repository is for research, engineering integration, and educational use. I
 - `Kronos` 已通过 worker 封装为统一预测服务
 - `TradingAgents` 已通过 worker 接为真实研究引擎
 - `ai-hedge-fund` 已通过 worker 接为执行 / 回测壳
-- `hybrid` 已经具备最小可演示链路：真实 forecast + hub-side signal synthesis + 可选 research/execution
+- `hybrid` 已经具备可演示链路：真实 forecast + hub-side signal synthesis + forecast 注入 TradingAgents 提示链 + 可选 research/execution
 
 ### 为什么采用 Hub + Worker
 
@@ -357,7 +357,7 @@ This repository is for research, engineering integration, and educational use. I
 
 ### 当前边界
 
-- `TradingAgents` 还没有真正把 forecast context 深度写进上游 reasoning graph
-- `hybrid` 当前仍以 Hub 侧信号桥接为主
+- `TradingAgents` 已经在 analyst / researcher / trader / risk / portfolio prompts 中消费 forecast context，但更深的工具级融合还没完成
+- `hybrid` 当前仍以 Hub 侧 signal synthesis + prompt 注入作为桥接主路径
 - `ai-hedge-fund` 还没有完全以 Hub 网关作为统一后端
 - 统一日志、统一回测结果视图、统一前端入口仍是下一阶段工作
