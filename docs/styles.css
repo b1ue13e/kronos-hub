@@ -149,6 +149,15 @@ li {
   padding: 24px;
 }
 
+.showcase-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .panel {
   margin-bottom: 20px;
 }

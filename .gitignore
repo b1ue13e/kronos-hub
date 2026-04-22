@@ -38,6 +38,10 @@ pip-wheel-metadata/
 *.7z
 *.tar
 *.gz
+ChatGPT Image *.png
+ChatGPT Image *.jpg
+ChatGPT Image *.jpeg
+ChatGPT Image *.webp
 
 .DS_Store
 Thumbs.db

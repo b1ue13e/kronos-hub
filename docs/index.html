@@ -23,8 +23,32 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="./assets/hybrid-demo.gif" alt="Kronos Hub hybrid demo animation" />
+        <img src="./assets/hero-cover.png" alt="Kronos Hub hero cover" />
       </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <img class="showcase-image" src="./assets/research-engine.png" alt="Forecast-aware research engine" />
+        <h2>Forecast-Aware Research</h2>
+        <p>The hub now pushes forecast context into TradingAgents analysts, researchers, trader, risk agents, and the portfolio manager.</p>
+      </article>
+      <article class="card">
+        <img class="showcase-image" src="./assets/execution-shell.png" alt="Execution and backtesting shell" />
+        <h2>Execution And Backtesting</h2>
+        <p>Execution, portfolio, risk, and backtest surfaces can act as the downstream shell for the hybrid pipeline.</p>
+      </article>
+      <article class="card">
+        <h2>Minimal Hybrid Demo</h2>
+        <p>The hybrid path now supports a minimal real runtime chain:</p>
+        <ol>
+          <li>Run a real Kronos forecast</li>
+          <li>Synthesize a structured signal in the hub</li>
+          <li>Optionally expand into research</li>
+          <li>Optionally expand into execution/backtesting</li>
+        </ol>
+        <a class="text-link" href="https://github.com/b1ue13e/kronos-hub/blob/main/examples/requests/hybrid.demo.template.json">Open demo request template</a>
+      </article>
     </section>
 
     <section class="grid">
@@ -40,22 +64,15 @@
         </ul>
       </article>
       <article class="card">
-        <h2>Minimal Hybrid Demo</h2>
-        <p>The hybrid path now supports a minimal real runtime chain:</p>
-        <ol>
-          <li>Run a real Kronos forecast</li>
-          <li>Synthesize a structured signal in the hub</li>
-          <li>Optionally expand into research</li>
-          <li>Optionally expand into execution/backtesting</li>
-        </ol>
-        <a class="text-link" href="https://github.com/b1ue13e/kronos-hub/blob/main/examples/requests/hybrid.demo.template.json">Open demo request template</a>
-      </article>
-      <article class="card">
         <h2>Why This Repo Exists</h2>
         <p>
           The upstream repos are useful on their own. Kronos Hub is for teams that want a shared API,
           isolated workers for dependency conflicts, and one place to build forecast-aware quant flows.
         </p>
+      </article>
+      <article class="card">
+        <h2>Docs & Demo</h2>
+        <p>Use the hosted docs page as the public-facing landing surface, then route users into the README, API docs, and hybrid demo request template.</p>
       </article>
     </section>
 

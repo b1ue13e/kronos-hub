@@ -18,7 +18,7 @@ Instead of smashing three codebases into one fragile runtime, it adds a worker-b
 
 **Quick links:** [Hosted Docs](https://b1ue13e.github.io/kronos-hub/) · [Architecture](docs/architecture.md) · [API](docs/api.md) · [Hybrid Demo](examples/requests/hybrid.demo.template.json) · [中文说明](#中文说明)
 
-[![Kronos Hub Hybrid Demo](docs/assets/hybrid-demo.gif)](https://b1ue13e.github.io/kronos-hub/)
+[![Kronos Hub Hero](docs/assets/hero-cover.png)](https://b1ue13e.github.io/kronos-hub/)
 
 ## What You Can Do Today
 
@@ -82,6 +82,33 @@ With optional expansion:
 .\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch
 .\examples\scripts\invoke-hybrid-demo.ps1 -EnableResearch -EnableExecution
 ```
+
+## Visual Overview
+
+<table>
+  <tr>
+    <td width="50%">
+      <a href="https://b1ue13e.github.io/kronos-hub/">
+        <img src="docs/assets/research-engine.png" alt="Forecast-aware research engine" />
+      </a>
+    </td>
+    <td width="50%">
+      <a href="https://b1ue13e.github.io/kronos-hub/">
+        <img src="docs/assets/execution-shell.png" alt="Execution and backtesting shell" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>Forecast-aware research engine</strong><br/>
+      Multi-source analysts converge into a shared reasoning core, now with injected forecast context.
+    </td>
+    <td align="center">
+      <strong>Execution and backtesting shell</strong><br/>
+      Portfolio, risk, performance, and routing flows are ready to become the downstream surface for hybrid runs.
+    </td>
+  </tr>
+</table>
 
 ## Why Not Just Use The Upstream Repos?
 
