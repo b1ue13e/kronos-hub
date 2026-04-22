@@ -18,7 +18,7 @@ Instead of smashing three codebases into one fragile runtime, it adds a worker-b
 
 **Quick links:** [Hosted Docs](https://b1ue13e.github.io/kronos-hub/) · [Architecture](docs/architecture.md) · [API](docs/api.md) · [Hybrid Demo](examples/requests/hybrid.demo.template.json) · [中文说明](#中文说明)
 
-[![Kronos Hub Hero](docs/assets/hero-cover.png)](https://b1ue13e.github.io/kronos-hub/)
+[![Kronos Hub Hero](docs/assets/research-engine.png)](https://b1ue13e.github.io/kronos-hub/)
 
 ## What You Can Do Today
 
@@ -89,7 +89,7 @@ With optional expansion:
   <tr>
     <td width="50%">
       <a href="https://b1ue13e.github.io/kronos-hub/">
-        <img src="docs/assets/research-engine.png" alt="Forecast-aware research engine" />
+        <img src="docs/assets/hero-cover.png" alt="Kronos Hub platform overview" />
       </a>
     </td>
     <td width="50%">
@@ -100,8 +100,8 @@ With optional expansion:
   </tr>
   <tr>
     <td align="center">
-      <strong>Forecast-aware research engine</strong><br/>
-      Multi-source analysts converge into a shared reasoning core, now with injected forecast context.
+      <strong>Unified platform overview</strong><br/>
+      A single hub connects forecasting, research, and execution into one integration-first quant workflow.
     </td>
     <td align="center">
       <strong>Execution and backtesting shell</strong><br/>
