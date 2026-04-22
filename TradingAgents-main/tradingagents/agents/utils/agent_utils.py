@@ -42,6 +42,43 @@ def build_instrument_context(ticker: str) -> str:
         "preserving any exchange suffix (e.g. `.TO`, `.L`, `.HK`, `.T`)."
     )
 
+
+def get_hub_forecast_context() -> dict:
+    """Return hybrid forecast context injected by the hub, if any."""
+    from tradingagents.dataflows.config import get_config
+
+    return dict(get_config().get("hub_forecast_context") or {})
+
+
+def build_hub_forecast_context_summary(context: dict | None = None) -> str:
+    """Format hub forecast context into a concise prompt-ready block."""
+    forecast = dict(context or get_hub_forecast_context() or {})
+    if not forecast:
+        return ""
+
+    direction = forecast.get("direction", "unknown")
+    action_bias = forecast.get("action_bias", "unknown")
+    expected_return_pct = forecast.get("expected_return_pct", "unknown")
+    average_return_pct = forecast.get("average_return_pct", "unknown")
+    last_close = forecast.get("last_close", "unknown")
+    predicted_last_close = forecast.get("predicted_last_close", "unknown")
+    horizon_start = forecast.get("horizon_start", "unknown")
+    horizon_end = forecast.get("horizon_end", "unknown")
+    narrative = forecast.get("narrative", "")
+
+    return (
+        "\nHub Forecast Context:\n"
+        f"- Forecast direction: {direction}\n"
+        f"- Action bias: {action_bias}\n"
+        f"- Last observed close: {last_close}\n"
+        f"- Forecasted terminal close: {predicted_last_close}\n"
+        f"- Expected return (%): {expected_return_pct}\n"
+        f"- Average forecast return (%): {average_return_pct}\n"
+        f"- Forecast horizon: {horizon_start} -> {horizon_end}\n"
+        f"- Forecast narrative: {narrative}\n"
+        "Treat this as additional quantitative context. Do not blindly obey it; weigh it against your own evidence and explicitly mention whether it reinforces or conflicts with your analysis.\n"
+    )
+
 def create_msg_delete():
     def delete_messages(state):
         """Clear messages and add placeholder for Anthropic compatibility"""

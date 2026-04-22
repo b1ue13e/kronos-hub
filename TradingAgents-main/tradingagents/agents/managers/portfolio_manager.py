@@ -1,4 +1,4 @@
-from tradingagents.agents.utils.agent_utils import build_instrument_context, get_language_instruction
+from tradingagents.agents.utils.agent_utils import build_hub_forecast_context_summary, build_instrument_context, get_language_instruction
 
 
 def create_portfolio_manager(llm, memory):
@@ -14,6 +14,7 @@ def create_portfolio_manager(llm, memory):
         sentiment_report = state["sentiment_report"]
         research_plan = state["investment_plan"]
         trader_plan = state["trader_investment_plan"]
+        forecast_context = state.get("hub_forecast_summary") or build_hub_forecast_context_summary()
 
         curr_situation = f"{market_research_report}\n\n{sentiment_report}\n\n{news_report}\n\n{fundamentals_report}"
         past_memories = memory.get_memories(curr_situation, n_matches=2)
@@ -38,6 +39,7 @@ def create_portfolio_manager(llm, memory):
 **Context:**
 - Research Manager's investment plan: **{research_plan}**
 - Trader's transaction proposal: **{trader_plan}**
+- Forecast context from the hub: **{forecast_context}**
 - Lessons from past decisions: **{past_memory_str}**
 
 **Required Output Structure:**

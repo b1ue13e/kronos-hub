@@ -1,4 +1,6 @@
 
+from tradingagents.agents.utils.agent_utils import build_hub_forecast_context_summary
+
 
 def create_conservative_debator(llm):
     def conservative_node(state) -> dict:
@@ -13,6 +15,7 @@ def create_conservative_debator(llm):
         sentiment_report = state["sentiment_report"]
         news_report = state["news_report"]
         fundamentals_report = state["fundamentals_report"]
+        forecast_context = state.get("hub_forecast_summary") or build_hub_forecast_context_summary()
 
         trader_decision = state["trader_investment_plan"]
 
@@ -26,6 +29,7 @@ Market Research Report: {market_research_report}
 Social Media Sentiment Report: {sentiment_report}
 Latest World Affairs Report: {news_report}
 Company Fundamentals Report: {fundamentals_report}
+Forecast Context from the hub: {forecast_context}
 Here is the current conversation history: {history} Here is the last response from the aggressive analyst: {current_aggressive_response} Here is the last response from the neutral analyst: {current_neutral_response}. If there are no responses from the other viewpoints yet, present your own argument based on the available data.
 
 Engage by questioning their optimism and emphasizing the potential downsides they may have overlooked. Address each of their counterpoints to showcase why a conservative stance is ultimately the safest path for the firm's assets. Focus on debating and critiquing their arguments to demonstrate the strength of a low-risk strategy over their approaches. Output conversationally as if you are speaking without any special formatting."""

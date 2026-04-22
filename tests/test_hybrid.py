@@ -106,6 +106,8 @@ class HybridAdapterTest(unittest.TestCase):
         self.assertEqual(result.result["research"]["decision"], "SELL")
         self.assertEqual(result.pipeline[1].status, "completed")
         self.assertEqual(result.result["signal"]["direction"], "bearish")
+        _, kwargs = adapter.trading_research_service.run.call_args
+        self.assertIn("hub_forecast_context", kwargs["config_overrides"])
 
 
 if __name__ == "__main__":

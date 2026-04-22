@@ -6,6 +6,7 @@ from tradingagents.agents.utils.agent_states import (
     InvestDebateState,
     RiskDebateState,
 )
+from tradingagents.agents.utils.agent_utils import build_hub_forecast_context_summary, get_hub_forecast_context
 
 
 class Propagator:
@@ -19,10 +20,13 @@ class Propagator:
         self, company_name: str, trade_date: str
     ) -> Dict[str, Any]:
         """Create the initial state for the agent graph."""
+        hub_forecast_context = get_hub_forecast_context()
         return {
             "messages": [("human", company_name)],
             "company_of_interest": company_name,
             "trade_date": str(trade_date),
+            "hub_forecast_context": hub_forecast_context,
+            "hub_forecast_summary": build_hub_forecast_context_summary(hub_forecast_context),
             "investment_debate_state": InvestDebateState(
                 {
                     "bull_history": "",

@@ -1,5 +1,5 @@
-
 from tradingagents.agents.utils.agent_utils import build_instrument_context
+from tradingagents.agents.utils.agent_utils import build_hub_forecast_context_summary, build_instrument_context
 
 
 def create_research_manager(llm, memory):
@@ -10,6 +10,7 @@ def create_research_manager(llm, memory):
         sentiment_report = state["sentiment_report"]
         news_report = state["news_report"]
         fundamentals_report = state["fundamentals_report"]
+        forecast_context = state.get("hub_forecast_summary") or build_hub_forecast_context_summary()
 
         investment_debate_state = state["investment_debate_state"]
 
@@ -35,10 +36,14 @@ Here are your past reflections on mistakes:
 \"{past_memory_str}\"
 
 {instrument_context}
+Forecast context from the hub:
+{forecast_context}
 
 Here is the debate:
 Debate History:
-{history}"""
+{history}
+
+You must explicitly mention how the forecast context should or should not change your final investment plan."""
         response = llm.invoke(prompt)
 
         new_investment_debate_state = {

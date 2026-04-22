@@ -18,6 +18,8 @@ Instead of smashing three codebases into one fragile runtime, it adds a worker-b
 
 **Quick links:** [Hosted Docs](https://b1ue13e.github.io/kronos-hub/) · [Architecture](docs/architecture.md) · [API](docs/api.md) · [Hybrid Demo](examples/requests/hybrid.demo.template.json) · [中文说明](#中文说明)
 
+[![Kronos Hub Hybrid Demo](docs/assets/hybrid-demo.gif)](https://b1ue13e.github.io/kronos-hub/)
+
 [![Kronos Hub Architecture](docs/assets/architecture-overview.svg)](https://b1ue13e.github.io/kronos-hub/)
 
 ## What You Can Do Today
