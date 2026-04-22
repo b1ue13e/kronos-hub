@@ -1,16 +1,15 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = ROOT_DIR / "docs" / "assets" / "hybrid-demo.gif"
 
 WIDTH = 1440
-HEIGHT = 860
+HEIGHT = 820
 
 
 def load_font(size: int, *, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
@@ -29,7 +28,6 @@ def load_font(size: int, *, bold: bool = False) -> ImageFont.FreeTypeFont | Imag
                 r"C:\Windows\Fonts\arial.ttf",
             ]
         )
-
     for candidate in candidates:
         path = Path(candidate)
         if path.exists():
@@ -37,162 +35,147 @@ def load_font(size: int, *, bold: bool = False) -> ImageFont.FreeTypeFont | Imag
     return ImageFont.load_default()
 
 
-TITLE_FONT = load_font(44, bold=True)
+TITLE_FONT = load_font(46, bold=True)
 SUBTITLE_FONT = load_font(28)
-LABEL_FONT = load_font(30, bold=True)
-BODY_FONT = load_font(22)
+SECTION_FONT = load_font(24, bold=True)
+CARD_TITLE_FONT = load_font(30, bold=True)
+CARD_BODY_FONT = load_font(19)
 SMALL_FONT = load_font(18)
 
 
 BOXES = {
-    "client": (86, 320, 260, 435),
-    "gateway": (338, 280, 604, 474),
-    "hybrid": (338, 132, 564, 236),
-    "registry": (670, 164, 964, 300),
-    "services": (670, 344, 964, 484),
-    "workers": (670, 524, 964, 644),
-    "kronos": (1032, 110, 1302, 234),
-    "tradingagents": (1032, 304, 1302, 428),
-    "aihf": (1032, 498, 1302, 622),
-    "signal": (1014, 214, 1324, 286),
+    "client": (84, 326, 250, 450),
+    "gateway": (292, 296, 552, 480),
+    "forecast": (600, 296, 860, 480),
+    "research": (908, 296, 1168, 480),
+    "execution": (1196, 296, 1368, 480),
 }
 
 
-FRAME_STEPS = [
+STEPS = [
     {
-        "highlight": ["gateway", "registry", "services", "workers", "kronos"],
+        "active": "forecast",
         "headline": "Step 1 · Run a real Kronos forecast",
-        "copy": "The hub sends OHLCV history into an isolated worker and gets back structured forecast output.",
-        "accent": "#0f766e",
+        "copy": "OHLCV history enters the hub and is executed through an isolated Kronos worker runtime.",
+        "color": "#12b3a6",
     },
     {
-        "highlight": ["gateway", "registry", "services", "workers", "kronos", "signal"],
-        "headline": "Step 2 · Build a reusable forecast signal",
-        "copy": "Hybrid synthesizes direction, expected return, horizon, and action bias into a clean bridge contract.",
-        "accent": "#c97318",
+        "active": "forecast",
+        "headline": "Step 2 · Build a forecast signal contract",
+        "copy": "The hub turns raw forecast output into direction, return, horizon, and action bias.",
+        "color": "#e89b2d",
     },
     {
-        "highlight": ["gateway", "registry", "services", "workers", "signal", "tradingagents"],
-        "headline": "Step 3 · Inject forecast into research",
-        "copy": "TradingAgents analysts, researchers, trader, and portfolio manager all receive the forecast context in-prompt.",
-        "accent": "#1f6feb",
+        "active": "research",
+        "headline": "Step 3 · Inject forecast into TradingAgents",
+        "copy": "Analysts, researchers, trader, risk agents, and portfolio manager all receive forecast context in-prompt.",
+        "color": "#3b82f6",
     },
     {
-        "highlight": ["gateway", "registry", "services", "workers", "signal", "tradingagents", "aihf"],
-        "headline": "Step 4 · Fan out into execution or backtest",
-        "copy": "When credentials and dates are available, hybrid can continue into AI Hedge Fund execution or backtesting.",
-        "accent": "#8b5cf6",
+        "active": "execution",
+        "headline": "Step 4 · Expand into execution or backtest",
+        "copy": "When dates and credentials are available, hybrid can continue into AI Hedge Fund execution/backtesting.",
+        "color": "#1dbf73",
     },
 ]
 
 
-def rounded_box(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], fill: str, outline: str, width: int = 2) -> None:
-    draw.rounded_rectangle(box, radius=28, fill=fill, outline=outline, width=width)
+def rounded_rect(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], *, fill: str, outline: str, width: int = 2, radius: int = 28) -> None:
+    draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
 
 
 def arrow(draw: ImageDraw.ImageDraw, start: tuple[int, int], end: tuple[int, int], color: str, width: int = 6) -> None:
     draw.line([start, end], fill=color, width=width)
     ex, ey = end
-    draw.polygon([(ex, ey), (ex - 14, ey - 8), (ex - 14, ey + 8)], fill=color)
+    draw.polygon([(ex, ey), (ex - 16, ey - 10), (ex - 16, ey + 10)], fill=color)
 
 
-def draw_box(draw: ImageDraw.ImageDraw, key: str, title: str, subtitle: str, *, active: bool = False, accent: str = "#0f766e") -> None:
-    box = BOXES[key]
-    if active:
-        fill = "#fffdf8"
-        outline = accent
-        glow = accent
-    else:
-        fill = "#fffaf0"
-        outline = "#d6cfbc"
-        glow = None
-
-    rounded_box(draw, box, fill=fill, outline=outline, width=4 if active else 2)
-
-    if glow:
-        x1, y1, x2, y2 = box
-        draw.rounded_rectangle((x1 - 8, y1 - 8, x2 + 8, y2 + 8), radius=32, outline=glow, width=3)
-
-    x1, y1, x2, y2 = box
-    cx = (x1 + x2) / 2
-    draw.text((cx, y1 + 26), title, fill="#102018", font=LABEL_FONT, anchor="ma")
-    draw.text((cx, y1 + 68), subtitle, fill="#566458", font=BODY_FONT, anchor="ma")
-
-
-def draw_signal_banner(draw: ImageDraw.ImageDraw, *, active: bool, accent: str) -> None:
-    box = BOXES["signal"]
-    rounded_box(
+def draw_card(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[int, int, int, int],
+    *,
+    title: str,
+    body: str,
+    active: bool,
+    color: str,
+) -> None:
+    rounded_rect(
         draw,
         box,
-        fill="#fff8ec" if active else "#f4efe3",
-        outline=accent if active else "#d7d0be",
+        fill="#0f1d1a" if active else "#122522",
+        outline=color if active else "#29423c",
         width=4 if active else 2,
+        radius=26,
     )
+    x1, y1, x2, y2 = box
+    draw.text(((x1 + x2) / 2, y1 + 44), title, fill="#f3fbf8", font=CARD_TITLE_FONT, anchor="ma")
+    draw.text(((x1 + x2) / 2, y1 + 92), body, fill="#9dc0b8", font=CARD_BODY_FONT, anchor="ma")
+
+
+def draw_chip(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], *, label: str, sublabel: str, accent: str) -> None:
+    rounded_rect(draw, box, fill="#101816", outline=accent, width=2, radius=20)
     x1, y1, x2, _ = box
-    draw.text(((x1 + x2) / 2, y1 + 20), "Forecast Signal", fill="#754515", font=LABEL_FONT, anchor="ma")
-    draw.text((x1 + 24, y1 + 58), "direction · return · horizon · action bias", fill="#8a5a25", font=SMALL_FONT)
+    draw.text(((x1 + x2) / 2, y1 + 24), label, fill="#f3fbf8", font=SECTION_FONT, anchor="ma")
+    draw.text(((x1 + x2) / 2, y1 + 52), sublabel, fill="#89a79f", font=SMALL_FONT, anchor="ma")
 
 
 def build_frame(step: dict) -> Image.Image:
-    image = Image.new("RGBA", (WIDTH, HEIGHT), "#f4efe3")
+    image = Image.new("RGBA", (WIDTH, HEIGHT), "#081311")
     draw = ImageDraw.Draw(image)
 
     # Background
-    draw.rounded_rectangle((24, 24, WIDTH - 24, HEIGHT - 24), radius=36, fill="#f8f4ea", outline="#d7d0be", width=2)
-    draw.ellipse((-60, -80, 440, 320), fill="#d6efe7")
-    draw.ellipse((WIDTH - 460, HEIGHT - 300, WIDTH + 40, HEIGHT + 120), fill="#f4dcc2")
+    draw.rounded_rectangle((18, 18, WIDTH - 18, HEIGHT - 18), radius=34, fill="#081311", outline="#1e3430", width=2)
+    draw.ellipse((-160, -120, 360, 360), fill="#0d2a26")
+    draw.ellipse((WIDTH - 400, HEIGHT - 320, WIDTH + 120, HEIGHT + 100), fill="#0d201b")
 
-    draw.text((84, 82), "Kronos Hub", fill="#0f766e", font=SUBTITLE_FONT)
-    draw.text((84, 124), "Forecast · Research · Execution", fill="#102018", font=TITLE_FONT)
-    draw.text((84, 186), "One hub for modern quant workflows", fill="#102018", font=TITLE_FONT)
-    draw.text((84, 250), "A lightweight orchestration layer for Kronos, TradingAgents, and AI Hedge Fund.", fill="#546256", font=SUBTITLE_FONT)
+    draw.text((84, 74), "Kronos Hub", fill="#2dd4bf", font=SUBTITLE_FONT)
+    draw.text((84, 124), "Forecast · Research · Execution", fill="#f3fbf8", font=TITLE_FONT)
+    draw.text((84, 182), "One API hub for modern quant flows", fill="#f3fbf8", font=TITLE_FONT)
+    draw.text((84, 258), "A cleaner way to connect Kronos forecasting, TradingAgents research, and AI Hedge Fund execution.", fill="#89a79f", font=SUBTITLE_FONT)
 
-    # Arrows
-    arrow(draw, (260, 378), (328, 378), "#0f766e")
-    arrow(draw, (604, 378), (658, 378), "#0f766e")
-    arrow(draw, (818, 230), (1022, 170), "#c97318")
-    arrow(draw, (964, 378), (1022, 378), "#1f6feb")
-    arrow(draw, (964, 584), (1022, 560), "#8b5cf6")
-    arrow(draw, (564, 184), (658, 220), "#c97318")
+    active = step["active"]
+    color = step["color"]
 
-    active = set(step["highlight"])
-    accent = step["accent"]
+    # Core flow
+    draw_card(draw, BOXES["client"], title="Clients", body="scripts / future UI", active=active == "client", color=color)
+    draw_card(draw, BOXES["gateway"], title="FastAPI Gateway", body="one API surface", active=active == "gateway", color=color)
+    draw_card(draw, BOXES["forecast"], title="Forecast Layer", body="Kronos + signal bridge", active=active == "forecast", color=color)
+    draw_card(draw, BOXES["research"], title="Research Layer", body="forecast-aware TradingAgents", active=active == "research", color=color)
+    draw_card(draw, BOXES["execution"], title="Execution", body="AIHF shell", active=active == "execution", color=color)
 
-    draw_box(draw, "client", "Clients", "scripts / future UI", active="client" in active, accent=accent)
-    draw_box(draw, "gateway", "FastAPI Gateway", "one API surface", active="gateway" in active, accent=accent)
-    draw_box(draw, "hybrid", "Hybrid", "forecast-aware bridge", active="hybrid" in active, accent=accent)
-    draw_box(draw, "registry", "Engine Registry", "kronos · tradingagents · aihf", active="registry" in active, accent=accent)
-    draw_box(draw, "services", "Service Layer", "payloads · config · contracts", active="services" in active, accent=accent)
-    draw_box(draw, "workers", "JSON Workers", "subprocess isolation", active="workers" in active, accent=accent)
-    draw_box(draw, "kronos", "Kronos", "forecast engine", active="kronos" in active, accent=accent)
-    draw_box(draw, "tradingagents", "TradingAgents", "research + debate", active="tradingagents" in active, accent=accent)
-    draw_box(draw, "aihf", "AI Hedge Fund", "execution + backtest shell", active="aihf" in active, accent=accent)
-    draw_signal_banner(draw, active="signal" in active, accent=accent)
+    arrow(draw, (250, 388), (280, 388), "#2dd4bf")
+    arrow(draw, (552, 388), (584, 388), "#2dd4bf")
+    arrow(draw, (860, 388), (892, 388), "#2dd4bf")
+    arrow(draw, (1168, 388), (1200, 388), "#2dd4bf")
 
-    # Bottom caption
-    draw.rounded_rectangle((72, 690, WIDTH - 72, 804), radius=28, fill="#102018", outline="#102018")
-    draw.text((104, 720), step["headline"], fill="#f8f4ea", font=LABEL_FONT)
-    draw.text((104, 762), step["copy"], fill="#c6d7cf", font=BODY_FONT)
+    # Bottom chips
+    draw.text((84, 556), "Powered by real upstream runtimes", fill="#f3fbf8", font=SECTION_FONT)
+    draw_chip(draw, (84, 590, 320, 668), label="Kronos", sublabel="forecast engine", accent="#12b3a6")
+    draw_chip(draw, (360, 590, 686, 668), label="TradingAgents", sublabel="analysts · debate · trader · risk", accent="#3b82f6")
+    draw_chip(draw, (726, 590, 1030, 668), label="AI Hedge Fund", sublabel="execution + backtest shell", accent="#1dbf73")
+
+    # Status rail
+    rounded_rect(draw, (84, 704, WIDTH - 84, 780), fill="#0f1d1a", outline="#243a35", width=2, radius=26)
+    draw.text((112, 724), step["headline"], fill="#f3fbf8", font=SECTION_FONT)
+    draw.text((112, 752), step["copy"], fill="#a4c4bc", font=CARD_BODY_FONT)
+    draw.rounded_rectangle((WIDTH - 250, 720, WIDTH - 92, 760), radius=18, fill=color)
+    draw.text((WIDTH - 171, 730), "live hybrid", fill="#081311", font=SECTION_FONT, anchor="ma")
 
     return image.convert("P", palette=Image.ADAPTIVE)
 
 
-def expand_frames(frames: Iterable[Image.Image], hold: int = 2) -> list[Image.Image]:
+def main() -> None:
+    frames = [build_frame(step) for step in STEPS]
     expanded: list[Image.Image] = []
     for frame in frames:
-        expanded.extend([frame] * hold)
-    return expanded
+        expanded.extend([frame] * 2)
 
-
-def main() -> None:
-    frames = [build_frame(step) for step in FRAME_STEPS]
-    frames = expand_frames(frames, hold=2)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    frames[0].save(
+    expanded[0].save(
         OUTPUT_PATH,
         save_all=True,
-        append_images=frames[1:],
-        duration=850,
+        append_images=expanded[1:],
+        duration=900,
         loop=0,
         disposal=2,
     )

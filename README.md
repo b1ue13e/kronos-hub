@@ -20,8 +20,6 @@ Instead of smashing three codebases into one fragile runtime, it adds a worker-b
 
 [![Kronos Hub Hybrid Demo](docs/assets/hybrid-demo.gif)](https://b1ue13e.github.io/kronos-hub/)
 
-[![Kronos Hub Architecture](docs/assets/architecture-overview.svg)](https://b1ue13e.github.io/kronos-hub/)
-
 ## What You Can Do Today
 
 The current workspace already supports real worker-backed routes for:
